@@ -186,8 +186,9 @@ class CubeMXImporter(object):
         """
         relativeMapping = {"Src":"src","Inc":"include"}
         mapping = {os.path.join(self.cubeMXProjectPath,_src):os.path.join(self.eclipseProjectPath,_dst)  for _src,_dst in relativeMapping.items()}
-        if(os.path.islink(mapping.values()[0])):
-            return False
+        for path in mapping.values():
+            if(os.path.islink(path)):
+                return False
         [os.rmdir(src) for src in mapping.values()]
         [os.symlink(src,dst) for src,dst in mapping.items()]
 
@@ -347,8 +348,8 @@ class CubeMXImporter(object):
                 os.path.join(self.eclipseprojectpath, "system/src/cmsis/startup_%s.s" % self.HAL_MCU_TYPE.lower()),
                 os.path.join(self.eclipseprojectpath, "system/src/cmsis/startup_%s.S" % self.HAL_MCU_TYPE.lower()))
 
-            if cubeMXVersion >= 418:
-                os.unlink(os.path.join(self.eclipseprojectpath, "src/system_stm32%sxx.c" % self.HAL_TYPE.lower()))
+            #if cubeMXVersion >= 418:
+            #    os.unlink(os.path.join(self.eclipseprojectpath, "src/system_stm32%sxx.c" % self.HAL_TYPE.lower()))
 
         self.logger.info("Successfully imported CMSIS files")
 
