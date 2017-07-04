@@ -336,7 +336,8 @@ class CubeMXImporter(object):
             startupFile = os.path.join(self.cubemxprojectpath,
                                   "startup/startup_%s.s" % self.HAL_MCU_TYPE.lower())
 
-        locations = ((systemFile, dstSourceDir), (startupFile, dstSourceDir))
+        # locations = ((systemFile, dstSourceDir), (startupFile, dstSourceDir))
+        locations = ((startupFile, dstSourceDir),)
 
         if not self.dryrun:
             for loc in locations:
